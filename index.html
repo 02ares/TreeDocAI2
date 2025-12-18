@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TreeDoc.AI - Mjeku digital i pemëve</title>
+
+</head>
+<body>
+<div id="authModal" class="auth-modal hidden" onclick="modalBackdropClose(event)">
+  <div class="auth-box">
+    <button class="close-btn" onclick="closeAuth()">✕</button>
+
+    <h2 id="authTitle">Log in</h2>
+
+    <div id="authMsg" style="margin:10px 0; color:#b91c1c; display:none;"></div>
+
+    <input type="email" id="authEmail" placeholder="Email" />
+    <input type="password" id="authPass" placeholder="Password" />
+
+    <button class="btn btn-primary" style="width:100%; margin-top:8px;" onclick="submitAuth()">Vazhdo</button>
+
+    <p class="switch" style="text-align:center; margin-top:12px;">
+      <span id="switchText">Nuk ke account?</span>
+      <span onclick="toggleAuthMode()" style="color: var(--primary-green); cursor:pointer; font-weight:700;">Sign up</span>
+    </p>
+  </div>
+</div>
+
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">
+                <svg class="nav-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                    <path d="M2 17L12 22L22 17"></path>
+                    <path d="M2 12L12 17L22 12"></path>
+                </svg>
+                <span>TreeDoc.AI</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Rreth Nesh</a></li>
+                <li><a href="#how-it-works">Si Funksionon</a></li>
+                <li><a href="#my-plants" onclick="openMyPlants(event)">Bimët e mija</a></li>
+                <li><a href="#goals">Qëllimet</a></li>
+</ul>
+            <div class="nav-actions">
+  <!-- Shfaqen kur s’je logged in -->
+  <div id="auth-actions" class="auth-actions">
+    <a href="#" class="nav-link" onclick="openAuth(event,'login')">Log in</a>
+    <a href="#" class="btn btn-primary nav-btn" onclick="openAuth(event,'signup')">Sign up</a>
+  </div>
+
+            <button class="nav-toggle" onclick="toggleMenu(event)">
+                <svg id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12H21M3 6H21M3 18H21"></path>
+                </svg>
+                <svg id="close-icon" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6L18 18"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="user-menu" class="user-menu hidden" onclick="event.stopPropagation()">
+  <a href="#profile" class="menu-item" onclick="openProfile(event)">Personalizimi</a>
+  <a href="#my-plants" class="menu-item" onclick="openMyPlants(event)">Bimët e mija</a>
+  <div class="menu-sep"></div>
+  <button class="menu-item danger" onclick="logout()">Log out</button>
+</div>
+
+
+        <div class="mobile-menu" id="mobile-menu">
+  <a href="#home" onclick="toggleMenu()">Home</a>
+  <a href="#about" onclick="toggleMenu()">Rreth Nesh</a>
+  <a href="#how-it-works" onclick="toggleMenu()">Si Funksionon</a>
+  <a href="#my-plants" onclick="toggleMenu(); openMyPlants(event)">Bimët e mija</a>
+  <a href="#goals" onclick="toggleMenu()">Qëllimi</a>
+</div>
+
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"></path>
+                        <line x1="2" y1="20" x2="2" y2="20"></line>
+                    </svg>
+                    Mjeku digital i pemëve
+                </div>
+                
+                <h1>
+                    Diagnostikim i shëndetit të pemëve nga<br>
+                    <span class="highlight">Inteligjenca Artificiale</span>
+                </h1>
+                
+                <p>
+                    Ndërtimi i një aplikacioni të shpejtë, të saktë dhe të aksesueshëm për monitorimin e shëndetit të pemëve tuaja.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#diagnose" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        Fillo Diagnostikimin
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Shiko Video
+                    </a>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">99%</div>
+                        <div class="stat-label">Përpikëri</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Disponueshmëri</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Sëmundje të njohura</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-card-bg"></div>
+                <div class="card hero-card-content">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Mr & Mrs</h3>
+                    <p>Shëndeti i pemëve tuaja është prioriteti ynë</p>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>Diagnostikim i menjëhershëm</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>Analizë e detajuar</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>Rekomandime trajtimi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Rreth Nesh</h2>
+                <p>
+                    TreeDoc.AI është një platformë moderne që përdor Inteligjencën Artificiale për të analizuar shëndetin e pemëve
+                    me saktësi të lartë. Duke kombinuar teknologjinë e machine learning me njohuritë agronomike, ne ofrojmë një
+                    mënyrë të thjeshtë dhe të shpejtë për të identifikuar sëmundjet dhe rreziqet vetëm nga një foto.
+            
+                    Qëllimi ynë është të ndihmojmë fermerët, agronomët dhe qytetarët të marrin vendime më të sigurta për
+                    mirëmbajtjen e pemëve dhe mbrojtjen e mjedisit. Me klasifikim automatik në Healthy, Sick dhe Danger, TreeDoc.AI
+                    sjell diagnozë të besueshme dhe informacion edukativ, i aksesueshëm nga çdo pajisje.
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <div class="feature-card-header">
+                        <div class="feature-card-icon green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+                                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+                            </svg>
+                        </div>
+                        <h3>AI Powered</h3>
+                    </div>
+                    <p>
+                        Përdorim algoritme të avancuara të inteligjencës artificiale për diagnostikim të saktë
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-header">
+                        <div class="feature-card-icon blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h3>I Besueshëm</h3>
+                    </div>
+                    <p>
+                        Verifikuar nga ekspertët e agronomisë për siguri dhe saktësi maksimale
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-header">
+                        <div class="feature-card-icon purple">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h3>I Aksesueshëm</h3>
+                    </div>
+                    <p>
+                        I disponueshëm në çdo kohë dhe nga çdo vend me një klik të vetëm
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="team" class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <p>Ekipi ynë i dedikuar për inovacion</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar feature-card-icon green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Ares Gera</h3>
+                    <div class="role">Founder & Software Developer</div>
+                    <p>
+                        Ekspert në zhvillimin e aplikacioneve web dhe mobile me teknologji moderne
+                    </p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar feature-card-icon blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Arla Çaushi</h3>
+                    <div class="role">Software Developer</div>
+                    <p>
+                        Specialistë në zhvillimin e softuerit dhe dizajnim të përballueshëm për përdoruesit
+                    </p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar feature-card-icon purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Majdi Rroshi</h3>
+                    <div class="role">Software Developer</div>
+                    <p>
+                        Zhvillues me përvojë në arkitekturën e softuerit dhe optimizimin e performancës
+                    </p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar feature-card-icon orange">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Juri Ramaj</h3>
+                    <div class="role">Software Developer</div>
+                    <p>
+                        Ekspert në zhvillimin e aplikacioneve web dhe mobile me teknologji moderne
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section section-gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Si Funksionon TreeDoc</h2>
+                <p>Procesi i thjeshtë për diagnostikim të shpejtë</p>
+            </div>
+
+            <div class="how-it-works">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Ngarko Fotografinë</h3>
+                            <p>Vendos një fotografi të qartë të pemës ose gjetheve që duan të diagnostikohen</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Analiza AI</h3>
+                            <p>Inteligjenca jonë artificiale analizon imazhin për të identifikuar problemet</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Merr Rezultatet</h3>
+                            <p>Merr diagnostikimin e detajuar dhe rekomandimet për trajtim</p>
+                        </div>
+                    </div>
+
+                    <a onclick="openFullscreen()" class="btn btn-primary" style="margin-top: 2rem; width: 100%;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Shiko Demonstrimin
+                    </a>
+                </div>
+
+                <div class="video-container">
+                    <video class="video-container" muted controls id="v">
+                        <source src="treeDocAI_inUse.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <section id="diagnose" class="section section-gray">
+    <div class="section-container">
+        <div class="section-header">
+            <h2>Diagnostikimi i Pemëve</h2>
+            <p>Ngarko foton e pemës dhe merr rezultatin nga modeli ynë AI</p>
+        </div>
+
+        <div style="width:100%; display:flex; justify-content:center;">
+            <iframe 
+                src="http://localhost:8501/"
+                width="100%"
+                height="900px"
+                style="border:none; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            </iframe>
+        </div>
+</section>
+<!-- My Plants Section -->
+        </div>
+    </section>
+    <section id="my-plants" class="section section-gray">
+  <div class="section-container">
+    <div class="section-header">
+      <h2>Bimët e mija</h2>
+      <p>Menaxho bimët e tua dhe ruaj historikun.</p>
+    </div>
+
+    <div id="myplants-locked" class="card">
+      <h3>Duhet të jesh i loguar</h3>
+      <p>Ky seksion është vetëm për kopshtarët e vërtetë.</p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="openAuth(event,'login')">Log in</button>
+        <button class="btn btn-outline" onclick="openAuth(event,'signup')">Sign up</button>
+      </div>
+    </div>
+
+    <div id="myplants-app" class="card" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+        <h3 style="margin:0;">Bimët e mia</h3>
+        <button class="btn btn-outline" onclick="logout()">Log out</button>
+      </div>
+
+      <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+        <input id="plantName" type="text" placeholder="Emri i bimës" style="flex:1; padding:12px; border-radius:10px; border:1px solid #e5e7eb;">
+        <button class="btn btn-primary" onclick="addPlant()">Shto</button>
+      </div>
+
+      <div id="plantsList" style="margin-top:16px;"></div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Project Goals Section -->
+    <section id="goals" class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Qëllimet e Projektit</h2>
+                <p>Objektivat tanë për një bujqësi më të mirë</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-green);">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        Diagnostikim Automatik
+                    </h3>
+                    <p>
+                        Identifikim automatik i gjendjes së pemëve me saktësi të lartë
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-green);">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        Monitorim Dëmtuesve
+                    </h3>
+                    <p>
+                        Vëzhgim i vazhdueshëm i sëmundjeve dhe dëmtuesve të pemëve
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-green);">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        Platformë Edukative
+                    </h3>
+                    <p>
+                        Krijimi i një platforme për edukimin e bujqve mbi shëndetin e pemëve
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-green);">
+                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+                        </svg>
+                        Integrim AI në Bujqësi
+                    </h3>
+                    <p>
+                        Zbatimi i inteligjencës artificiale në praktikat bujqësore moderne
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-green);">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12" y2="18"></line>
+                        </svg>
+                        Aplikim Mobil
+                    </h3>
+                    <p>
+                        Zhvillimi i një aplikacioni mobil për akses të lehtë në terren
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-green);">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                        </svg>
+                        Zgjerim dhe Promovim
+                    </h3>
+                    <p>
+                        Promovimi i gjerë i aplikacionit në komunitetin bujqësor
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+        <div class="section-container">
+            <h2>Gati për të transformuar menaxhimin e pemëve tuaja?</h2>
+            <p>
+                Bashkohuni me mijëra perdorues që po përdorin teknologjinë për një bujqësi më të mirë
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-white">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Fillo Tani
+                </a>
+                <a href="#" class="btn btn-transparent">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Mësoni Më Shumë
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--white);">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                        <path d="M2 17L12 22L22 17"></path>
+                        <path d="M2 12L12 17L22 12"></path>
+                    </svg>
+                    <span style="font-size: 1.25rem; font-weight: bold;">TreeDoc.AI</span>
+                </div>
+                <p style="color: #9ca3af;">
+                    Mjeku digital i pemëve - diagnostikim i shëndetit të pemëve nga inteligjenca artificiale
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Menyja</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Rreth Nesh</a></li>
+                    <li><a href="#how-it-works">Si Funksionon</a></li>
+                    <li><a href="#team">Ekipi</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Shërbimet</h3>
+                <ul>
+                    <li><a href="#">Diagnostikim</a></li>
+                    <li><a href="#">Monitorim</a></li>
+                    <li><a href="#">Edukim</a></li>
+                    <li><a href="#">Konsulencë</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontakt</h3>
+                <ul>
+                    <li style="color: #9ca3af;">Email: treedocai@gmail.com</li>
+                    <li style="color: #9ca3af;">Telefon: +355 68 800 0000</li>
+                    <li style="color: #9ca3af;">Adresa: Tirana, Albania</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 TreeDoc.AI. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
+
+    <script src="script.js">
+        
+    </script>
+</body>
+</html>
